@@ -497,7 +497,7 @@ body.en-mapa #toast{bottom:calc(var(--nav) + var(--hoja-px,150px) + 20px)}
 <main id="v-publica" class="vista">
   <div class="semana-bar">
     <button class="flecha" data-a="sem-ant" aria-label="Semana anterior"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6l6 6"/></svg></button>
-    <div class="semana-txt"><div id="pub-titulo"></div><div class="estado bor">Predicación pública</div></div>
+    <div class="semana-txt"><div id="pub-titulo"></div><div id="pub-estado" class="estado"></div></div>
     <button class="flecha" data-a="sem-sig" aria-label="Semana siguiente"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6l-6 6"/></svg></button>
   </div>
   <div id="pub-cuerpo"></div>
@@ -1242,7 +1242,7 @@ const idNP = (x, y) => Math.round(x) + '_' + Math.round(y);
    Todo se guarda en este teléfono (localStorage).
    El número de versión lo pone armar.py desde el archivo VERSION.
    ========================================================= */
-const VERSION = '4.1';
+const VERSION = '4.8';
 // Iconos de línea (Tabler Icons, licencia MIT), guardados dentro de la app para que funcionen sin internet
 const ICONOS = {"calendar-week": "<path d=\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12\"/> <path d=\"M16 3v4\"/> <path d=\"M8 3v4\"/> <path d=\"M4 11h16\"/> <path d=\"M7 14h.013\"/> <path d=\"M10.01 14h.005\"/> <path d=\"M13.01 14h.005\"/> <path d=\"M16.015 14h.005\"/> <path d=\"M13.015 17h.005\"/> <path d=\"M7.01 17h.005\"/> <path d=\"M10.01 17h.005\"/>", "file-description": "<path d=\"M14 3v4a1 1 0 0 0 1 1h4\"/> <path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\"/> <path d=\"M9 17h6\"/> <path d=\"M9 13h6\"/>", "speakerphone": "<path d=\"M18 8a3 3 0 0 1 0 6\"/> <path d=\"M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5\"/> <path d=\"M12 8l4.524 -3.77a.9 .9 0 0 1 1.476 .692v12.156a.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8\"/>", "map-2": "<path d=\"M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5\"/> <path d=\"M9 4v13\"/> <path d=\"M15 7v5.5\"/> <path d=\"M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879\"/> <path d=\"M19 18v.01\"/>", "folder": "<path d=\"M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2\"/>", "list-check": "<path d=\"M3.5 5.5l1.5 1.5l2.5 -2.5\"/> <path d=\"M3.5 11.5l1.5 1.5l2.5 -2.5\"/> <path d=\"M3.5 17.5l1.5 1.5l2.5 -2.5\"/> <path d=\"M11 6l9 0\"/> <path d=\"M11 12l9 0\"/> <path d=\"M11 18l9 0\"/>", "circle-check": "<path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\"/> <path d=\"M9 12l2 2l4 -4\"/>", "eraser": "<path d=\"M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3\"/> <path d=\"M18 13.3l-6.3 -6.3\"/>", "device-floppy": "<path d=\"M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2\"/> <path d=\"M10 14a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\"/> <path d=\"M14 4l0 4l-6 0l0 -4\"/>", "layout-cards": "<path d=\"M4 6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -12\"/> <path d=\"M14 6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -6\"/>", "table": "<path d=\"M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14\"/> <path d=\"M3 10h18\"/> <path d=\"M10 3v18\"/>", "brand-whatsapp": "<path d=\"M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9\"/> <path d=\"M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1\"/>", "message": "<path d=\"M8 9h8\"/> <path d=\"M8 13h6\"/> <path d=\"M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12\"/>", "plus": "<path d=\"M12 5l0 14\"/> <path d=\"M5 12l14 0\"/>", "minus": "<path d=\"M5 12l14 0\"/>", "current-location": "<path d=\"M9 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\"/> <path d=\"M4 12a8 8 0 1 0 16 0a8 8 0 1 0 -16 0\"/> <path d=\"M12 2l0 2\"/> <path d=\"M12 20l0 2\"/> <path d=\"M20 12l2 0\"/> <path d=\"M2 12l2 0\"/>", "checks": "<path d=\"M7 12l5 5l10 -10\"/> <path d=\"M2 12l5 5m5 -5l5 -5\"/>", "arrow-back-up": "<path d=\"M9 14l-4 -4l4 -4\"/> <path d=\"M5 10h11a4 4 0 1 1 0 8h-1\"/>", "x": "<path d=\"M18 6l-12 12\"/> <path d=\"M6 6l12 12\"/>", "download": "<path d=\"M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2\"/> <path d=\"M7 11l5 5l5 -5\"/> <path d=\"M12 4l0 12\"/>", "building-community": "<path d=\"M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8\"/> <path d=\"M13 7l0 .01\"/> <path d=\"M17 7l0 .01\"/> <path d=\"M17 11l0 .01\"/> <path d=\"M17 15l0 .01\"/>", "clock": "<path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\"/> <path d=\"M12 7v5l3 3\"/>", "spray": "<path d=\"M4 12a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2l0 -7\"/> <path d=\"M6 10v-4a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4\"/> <path d=\"M15 7h.01\"/> <path d=\"M18 9h.01\"/> <path d=\"M18 5h.01\"/> <path d=\"M21 3h.01\"/> <path d=\"M21 7h.01\"/> <path d=\"M21 11h.01\"/> <path d=\"M10 7h1\"/>", "home": "<path d=\"M5 12l-2 0l9 -9l9 9l-2 0\"/> <path d=\"M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7\"/> <path d=\"M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6\"/>", "video": "<path d=\"M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4\"/> <path d=\"M3 8a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -8\"/>", "mail": "<path d=\"M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10\"/> <path d=\"M3 7l9 6l9 -6\"/>", "alert-triangle": "<path d=\"M12 9v4\"/> <path d=\"M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0\"/> <path d=\"M12 16h.01\"/>", "trash": "<path d=\"M4 7l16 0\"/> <path d=\"M10 11l0 6\"/> <path d=\"M14 11l0 6\"/> <path d=\"M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12\"/> <path d=\"M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3\"/>", "clipboard-text": "<path d=\"M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2\"/> <path d=\"M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2\"/> <path d=\"M9 12h6\"/> <path d=\"M9 16h6\"/>", "user": "<path d=\"M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0\"/> <path d=\"M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\"/>", "map-pin": "<path d=\"M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/> <path d=\"M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0\"/>", "users": "<path d=\"M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\"/> <path d=\"M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\"/> <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/> <path d=\"M21 21v-2a4 4 0 0 0 -3 -3.85\"/>", "file-spreadsheet": "<path d=\"M14 3v4a1 1 0 0 0 1 1h4\"/> <path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\"/> <path d=\"M8 11h8v7h-8l0 -7\"/> <path d=\"M8 15h8\"/> <path d=\"M11 11v7\"/>", "share": "<path d=\"M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\"/> <path d=\"M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\"/> <path d=\"M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\"/> <path d=\"M8.7 10.7l6.6 -3.4\"/> <path d=\"M8.7 13.3l6.6 3.4\"/>", "file-import": "<path d=\"M14 3v4a1 1 0 0 0 1 1h4\"/> <path d=\"M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3\"/>", "history": "<path d=\"M12 8l0 4l2 2\"/> <path d=\"M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5\"/>", "chevron-right": "<path d=\"M9 6l6 6l-6 6\"/>", "chevron-left": "<path d=\"M15 6l-6 6l6 6\"/>", "help-circle": "<path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\"/> <path d=\"M12 16v.01\"/> <path d=\"M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483\"/>", "camera": "<path d=\"M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2\"/> <path d=\"M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\"/>", "check": "<path d=\"M5 12l5 5l10 -10\"/>", "info-circle": "<path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\"/> <path d=\"M12 9h.01\"/> <path d=\"M11 12h1v4h1\"/>", "rotate-clockwise": "<path d=\"M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5\"/>", "eye": "<path d=\"M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0\"/> <path d=\"M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6\"/>", "road": "<path d=\"M4 19l4 -14\"/> <path d=\"M16 5l4 14\"/> <path d=\"M12 8v-2\"/> <path d=\"M12 13v-2\"/> <path d=\"M12 18v-2\"/>", "maximize": "<path d=\"M4 8v-2a2 2 0 0 1 2 -2h2\"/> <path d=\"M4 16v2a2 2 0 0 0 2 2h2\"/> <path d=\"M16 4h2a2 2 0 0 1 2 2v2\"/> <path d=\"M16 20h2a2 2 0 0 0 2 -2v-2\"/>", "circle-dashed": "<path d=\"M8.56 3.69a9 9 0 0 0 -2.92 1.95\"/> <path d=\"M3.69 8.56a9 9 0 0 0 -.69 3.44\"/> <path d=\"M3.69 15.44a9 9 0 0 0 1.95 2.92\"/> <path d=\"M8.56 20.31a9 9 0 0 0 3.44 .69\"/> <path d=\"M15.44 20.31a9 9 0 0 0 2.92 -1.95\"/> <path d=\"M20.31 15.44a9 9 0 0 0 .69 -3.44\"/> <path d=\"M20.31 8.56a9 9 0 0 0 -1.95 -2.92\"/> <path d=\"M15.44 3.69a9 9 0 0 0 -3.44 -.69\"/>", "pencil": "<path d=\"M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4\"/> <path d=\"M13.5 6.5l4 4\"/>", "chevron-up": "<path d=\"M6 15l6 -6l6 6\"/>", "calendar-event": "<path d=\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12\"/> <path d=\"M16 3l0 4\"/> <path d=\"M8 3l0 4\"/> <path d=\"M4 11l16 0\"/> <path d=\"M8 15h2v2h-2l0 -2\"/>", "settings": "<path d=\"M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065\" /> <path d=\"M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\" />", "qrcode": "<path d=\"M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /> <path d=\"M7 17l0 .01\" /> <path d=\"M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /> <path d=\"M7 7l0 .01\" /> <path d=\"M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /> <path d=\"M17 7l0 .01\" /> <path d=\"M14 14l3 0\" /> <path d=\"M20 14l0 .01\" /> <path d=\"M14 14l0 3\" /> <path d=\"M14 20l3 0\" /> <path d=\"M17 17l3 0\" /> <path d=\"M20 17l0 3\" />", "send": "<path d=\"M10 14l11 -11\" /> <path d=\"M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5\" />", "photo": "<path d=\"M15 8h.01\" /> <path d=\"M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12\" /> <path d=\"M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5\" /> <path d=\"M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3\" />", "clipboard-check": "<path d=\"M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2\" /> <path d=\"M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2\" /> <path d=\"M9 14l2 2l4 -4\" />", "arrow-left": "<path d=\"M5 12l14 0\" /> <path d=\"M5 12l6 6\" /> <path d=\"M5 12l6 -6\" />", "sun": "<path d=\"M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" /><path d=\"M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7\" />", "ban": "<path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /><path d=\"M5.7 5.7l12.6 12.6\" />", "navigation": "<path d=\"M12 18.5l7.265 2.463c.196 .077 .42 .032 .57 -.116a.548 .548 0 0 0 .134 -.572l-7.969 -17.275l-7.97 17.275c-.07 .2 -.017 .424 .135 .572c.15 .148 .374 .193 .57 .116l7.265 -2.463\" />", "location-off": "<path d=\"M10.72 6.712l10.28 -3.712l-3.724 10.313m-1.056 2.925l-1.72 4.762a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l4.775 -1.724\" /><path d=\"M3 3l18 18\" />", "note": "<path d=\"M13 20l7 -7\" /><path d=\"M13 20v-6a1 1 0 0 1 1 -1h6v-7a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7\" />", "chevron-down": "<path d=\"M6 9l6 6l6 -6\"/>"};
 const ic = (n, c = '') => `<svg class="ic${c ? ' ' + c : ''}" viewBox="0 0 24 24" aria-hidden="true">${ICONOS[n] || ''}</svg>`;
@@ -1976,10 +1976,15 @@ function semanaPub(k = E.actual) {
   }
   return P().semanas[k];
 }
+/** Dos turnos distintos del mismo día cuyos horarios se cruzan (o empiezan a la misma hora) */
+const seCruzan = (a, b) => a !== b && a.dia === b.dia && (a.inicio === b.inicio || a.inicio < (b.fin || b.inicio) && b.inicio < (a.fin || a.inicio));
 const cantidadDe = t => Math.max(1, Number(lugar(t.lugar)?.cantidad) || 2);
 function pintarPublica() {
   $('#pub-titulo').textContent = tituloCorto(E.actual);
   const s = semanaPub(), cuerpo = $('#pub-cuerpo');
+  const { mal } = revisarPub(), lista = !mal.length && s.turnos.length > 0, est = $('#pub-estado');
+  est.innerHTML = s.confirmada ? `${ic('circle-check')} Confirmada` : lista ? `${ic('circle-check')} Lista para confirmar` : `Borrador${mal.length ? ` · ${mal.length === 1 ? 'falta 1 dato' : 'faltan ' + mal.length + ' datos'}` : ''}`;
+  est.className = 'estado ' + (s.confirmada || lista ? 'ok' : 'bor');
   if (!P().lugares.length && !verEjemploPub) {
     cuerpo.innerHTML = `<section class="card"><h2>Todavía no hay lugares</h2>
       <p class="nota">Este programa es aparte del de casa en casa. Para empezar, agrega los lugares (plaza, exhibidor…) con sus días y horarios, y los publicadores con su disponibilidad.</p>
@@ -1988,32 +1993,65 @@ function pintarPublica() {
     return;
   }
   const turnos = verEjemploPub ? ejemploPub() : s.turnos;
-  let h = verEjemploPub ? `<div class="aviso ojo" style="border-radius:12px;padding:10px 12px;margin-bottom:10px">Esto es solo un ejemplo con nombres inventados. <button class="btn chico" data-a="pub-ejemplo">Cerrar ejemplo</button></div>` : `
-    <div class="acciones"><button class="btn pri" data-a="pub-generar">${ic('list-check')} Completar automático</button><button class="btn" data-a="pub-agregar">${ic('plus')} Agregar turno</button></div><div id="pub-avisos"></div>`;
-  if (!verEjemploPub) h += turnos.map((t, i) => htmlTurno(t, i)).join('') || '<p class="nota">No hay turnos esta semana. Revisa los días de cada lugar en Datos, o agrega un turno.</p>';
-  h += `<h2 style="font-size:18px;margin:16px 0 8px">Programa para compartir</h2><div class="hoja-marco"><div id="hoja-pub"></div></div>
-    <button class="btn pri" style="width:100%;margin:8px 0" data-a="pub-imagen">${ic('brand-whatsapp')} Crear imagen para WhatsApp</button>`;
+  const guia = E.guiaPubOculta ? '' : `<div class="guia"><b>Cómo se usa (4 pasos)</b><ol>
+    <li>En <b>Datos → Predicación pública</b> agrega los lugares y los publicadores con su disponibilidad.</li>
+    <li>Aquí, toca <b>Completar automático</b> y revisa cada día.</li>
+    <li>Toca <b>Confirmar semana</b> cuando esté lista.</li>
+    <li>Abajo, toca <b>Crear imagen para WhatsApp</b> y envíala.</li></ol>
+    <button class="btn chico" data-a="pub-guia">Entendido, ocultar</button></div>`;
+  let h = verEjemploPub ? `<div class="aviso ojo" style="border-radius:12px;padding:10px 12px;margin-bottom:10px">Esto es solo un ejemplo con nombres inventados. <button class="btn chico" data-a="pub-ejemplo">Cerrar ejemplo</button></div>` : `${guia}
+    <button class="btn pri ancho" data-a="pub-generar">${ic('list-check')} Completar automático</button>
+    <p class="nota" style="margin:6px 2px 12px">Rellena solo los turnos vacíos. Lo que elegiste a mano se respeta.</p><div id="pub-avisos"></div>`;
+  if (!verEjemploPub) {
+    h += DIAS.map((d, di) => htmlDiaPub(turnos, di)).join('');
+    h += `<section class="card"><label for="pub-nota" style="font-weight:700">Nota para el programa (opcional)</label>
+      <input id="pub-nota" maxlength="140" value="${esc(s.nota || '')}" placeholder="Ej.: El jueves no hay exhibidor por lluvia" style="width:100%;min-height:48px;border:1.5px solid var(--borde);border-radius:11px;padding:8px 10px;margin-top:6px">
+      <p class="nota" style="margin-bottom:0">Aparece al final de la imagen del programa.</p></section>`;
+    h += s.confirmada
+      ? `<div class="cierre ok"><p>${ic('circle-check')} Semana confirmada. Ahora crea la imagen y envíala.</p></div>`
+      : `<div class="cierre"><p>${lista ? 'Todo está completo. Revisa los días y confirma.' : !s.turnos.length ? 'Esta semana no tiene turnos.' : `Antes de confirmar: ${esc(mal.slice(0, 2).join(' · '))}${mal.length > 2 ? ` y ${mal.length - 2} más` : ''}.`}</p><button class="btn ${lista ? 'pri' : ''}" data-a="pub-confirmar">${ic('circle-check')} Confirmar semana</button></div>`;
+  }
+  h += `<h2 style="font-size:18px;margin:16px 0 8px">Programa para compartir</h2><button class="hoja-marco" data-a="hoja-grande" data-v="hoja-pub" aria-label="Ver el programa en grande"><div id="hoja-pub"></div><span class="hoja-lupa">${ic('maximize')} Toca para verlo en grande</span></button>
+    <button class="btn pri" style="width:100%;margin:8px 0" data-a="pub-imagen">${ic('brand-whatsapp')} Crear imagen para WhatsApp</button>
+    ${E.guiaPubOculta && !verEjemploPub ? `<button class="btn-texto" data-a="pub-guia">${ic('help-circle')} Ver cómo se usa</button>` : ''}`;
   cuerpo.innerHTML = h;
-  $('#hoja-pub').innerHTML = hojaPublica(turnos);
+  $('#hoja-pub').innerHTML = hojaPublica(turnos, verEjemploPub ? '' : s.nota);
   ajustarHoja('hoja-pub');
 }
+/** Un día en tarjeta, igual que en Semana: cerrado muestra el resumen; abierto, sus turnos para editar */
+const abiertosPub = new Set();
+function htmlDiaPub(turnos, di) {
+  const f = fechaDe(E.actual, di), abierto = abiertosPub.has(di);
+  const del = turnos.map((t, i) => [t, i]).filter(([t]) => t.dia === di).sort((a, b) => a[0].inicio.localeCompare(b[0].inicio));
+  const rail = `<button class="d-rail" data-a="pub-dia" data-di="${di}" aria-expanded="${abierto}" aria-label="${abierto ? 'Cerrar' : 'Editar'} ${DIAS[di]} ${f.getDate()}"><span>${CORTO[di]}</span><b>${f.getDate()}</b></button>`;
+  if (abierto) return `<div class="dia abierto"><div class="dia-fila">${rail}<div class="dia-tit"><b>${DIAS[di]} ${f.getDate()}</b><button class="btn chico" data-a="pub-dia" data-di="${di}">${ic('chevron-up')} Listo</button></div></div>
+    <div class="dia-cuerpo">${del.map(([t, i]) => htmlTurno(t, i)).join('')}<button class="btn" style="width:100%" data-a="pub-agregar" data-di="${di}">${ic('plus')} Agregar turno</button></div></div>`;
+  const lineas = del.map(([t]) => {
+    const pubs = t.pubs.filter(Boolean), falta = cantidadDe(t) - pubs.length;
+    return `<span class="r-linea"><b>${esc(t.inicio)}</b> ${esc(t.lugar)}${pubs.length ? ` · ${esc(pubs.join(', '))}` : ''}${falta > 0 ? ` <em>falta${falta > 1 ? 'n' : ''} ${falta} publicador${falta > 1 ? 'es' : ''}</em>` : ''}</span>`;
+  }).join('');
+  return `<div class="dia"><div class="dia-fila">${rail}<button class="dia-res${del.length ? '' : ' vacio'}" data-a="pub-dia" data-di="${di}"><span class="r-lineas">${lineas || '<span class="r-linea">Sin turnos. Toca para agregar.</span>'}</span><span class="editar">${ic('pencil')}Editar</span></button></div></div>`;
+}
 function htmlTurno(t, i) {
-  const n = cantidadDe(t);
-  const opciones = (actual, otros) => {
-    const si = [], sin = [];
-    for (const p of P().publicadores) { if (otros.includes(p.nombre)) continue; const d = disponible(p, DIAS[t.dia], t.inicio); if (d === true) si.push(p.nombre); else if (d === null) sin.push(p.nombre); }
-    const fuera = actual && ![...si, ...sin].includes(actual) ? `<option selected>${esc(actual)}</option>` : '';
-    const o = x => `<option ${x === actual ? 'selected' : ''}>${esc(x)}</option>`;
-    return `<option value="">— Sin asignar —</option>${fuera}${si.length ? `<optgroup label="Disponibles">${si.map(o).join('')}</optgroup>` : ''}${sin.length ? `<optgroup label="Sin disponibilidad anotada">${sin.map(o).join('')}</optgroup>` : ''}`;
-  };
+  const n = cantidadDe(t), elegidos = t.pubs.filter(Boolean), lleno = elegidos.length >= n;
+  // Quién ya está en otro turno que se cruza con este (mismo día y horario)
+  const ocupados = new Set(semanaPub().turnos.filter(o => seCruzan(o, t)).flatMap(o => o.pubs));
+  const si = [], sin = [];
+  for (const p of P().publicadores) {
+    if (elegidos.includes(p.nombre)) continue;
+    const d = disponible(p, DIAS[t.dia], t.inicio); if (d === true) si.push(p.nombre); else if (d === null) sin.push(p.nombre);
+  }
+  const chip = (x, on) => { const ocu = !on && ocupados.has(x); return `<button class="chip ${on ? 'on' : ''}" data-a="pub-chip" data-v="${esc(x)}" ${!on && (lleno || ocu) ? 'disabled' : ''} title="${ocu ? 'Ya está en otro turno a esta hora' : ''}">${on ? ic('check') + ' ' : ''}${esc(x)}</button>`; };
+  const grupo = (titulo, lista, on) => lista.length ? `<p class="nota" style="margin:8px 0 4px">${titulo}</p><div class="chips">${lista.map(x => chip(x, on)).join('')}</div>` : '';
+  const pubsHtml = grupo('Elegidos (toca para quitar)', elegidos, true) + (lleno ? '' : grupo('Disponibles', si, false) + grupo('Sin disponibilidad anotada', sin, false))
+    + (!lleno && !si.length && !sin.length ? '<p class="nota">No hay más publicadores disponibles a esta hora.</p>' : '');
   let h = `<div class="turno" data-ti="${i}"><div class="dos"><div><label>Día</label><select data-pf="dia">${DIAS.map((d, k) => `<option value="${k}" ${k === t.dia ? 'selected' : ''}>${d} ${fechaDe(E.actual, k).getDate()}</option>`).join('')}</select></div>
     <div><label>Lugar</label><select data-pf="lugar">${t.lugar && !P().lugares.some(l => l.nombre === t.lugar) ? `<option selected>${esc(t.lugar)}</option>` : ''}${P().lugares.map(l => `<option ${l.nombre === t.lugar ? 'selected' : ''}>${esc(l.nombre)}</option>`).join('')}</select></div></div>
     <div class="dos"><div><label>Desde</label><input type="time" data-pf="inicio" value="${esc(t.inicio)}"></div><div><label>Hasta</label><input type="time" data-pf="fin" value="${esc(t.fin)}"></div></div>
-    <label>Publicadores (${n})</label>`;
-  for (let k = 0; k < n; k++) h += `<select data-pf="pub" data-k="${k}" style="margin-bottom:6px">${opciones(t.pubs[k] || '', t.pubs.filter((_, j) => j !== k))}</select>`;
+    <label>Publicadores: ${elegidos.length} de ${n}</label>${pubsHtml}`;
   return h + `<button class="btn chico peligro quitar" data-a="pub-quitar">${ic('trash')} Quitar turno</button></div>`;
 }
-function hojaPublica(turnos) {
+function hojaPublica(turnos, nota = '') {
   let h = `<div class="h-tit"><span>Predicación Pública · <span class="h-cong">${esc(E.congregacion)}</span></span><span class="h-mes">${esc(mesDeSemana(E.actual))}</span></div>`;
   DIAS.forEach((d, di) => {
     const del = turnos.filter(t => t.dia === di).sort((a, b) => a.inicio.localeCompare(b.inicio));
@@ -2024,6 +2062,7 @@ function hojaPublica(turnos) {
     }).join('');
     h += `<div class="c-bloque"><div class="c-dia"><b>${CORTO[di]}</b>${fechaDe(E.actual, di).getDate()}</div><div class="c-items">${filas}</div></div>`;
   });
+  if (nota) h += `<div class="h-nota">${ic('info-circle', 'h-ic')} ${esc(nota)}</div>`;
   return h;
 }
 function ejemploPub() {
@@ -2039,7 +2078,7 @@ function generarPublica() {
   for (const t of [...s.turnos].sort((a, b) => a.dia - b.dia || a.inicio.localeCompare(b.inicio))) {
     const n = cantidadDe(t);
     while (t.pubs.length < n) t.pubs.push('');
-    const mismaHora = new Set(s.turnos.filter(o => o !== t && o.dia === t.dia && o.inicio < (t.fin || t.inicio) && t.inicio < (o.fin || o.inicio) || o !== t && o.dia === t.dia && o.inicio === t.inicio).flatMap(o => o.pubs));
+    const mismaHora = new Set(s.turnos.filter(o => seCruzan(o, t)).flatMap(o => o.pubs));
     for (let k = 0; k < n; k++) {
       if (t.pubs[k]) continue;
       const hayHermano = t.pubs.some(p => publicador(p)?.sexo === 'Hermano');
@@ -2051,6 +2090,27 @@ function generarPublica() {
   }
   guardar(); pintarPublica();
   mostrarAvisosEn('#pub-avisos', av.length ? [{ cls: 'ojo', t: 'Revisa:', l: av }] : [{ cls: 'bien', t: 'Listo: se completaron los turnos.' }]);
+}
+/** Lo que falta (mal) y lo que conviene revisar (ojo) en la semana pública */
+function revisarPub() {
+  const s = semanaPub(), mal = [], ojo = [];
+  for (const t of [...s.turnos].sort((a, b) => a.dia - b.dia || a.inicio.localeCompare(b.inicio))) {
+    const l = `${DIAS[t.dia]} ${t.inicio} · ${t.lugar}`, falta = cantidadDe(t) - t.pubs.filter(Boolean).length;
+    if (falta > 0) mal.push(`${l}: falta${falta > 1 ? 'n' : ''} ${falta} publicador${falta > 1 ? 'es' : ''}`);
+    t.pubs.filter(Boolean).forEach(n => { const p = publicador(n); if (p && disponible(p, DIAS[t.dia], t.inicio) === false) ojo.push(`${l}: ${n} no está disponible en ese horario`); });
+  }
+  return { mal, ojo };
+}
+async function confirmarPub() {
+  const { mal, ojo } = revisarPub();
+  if (mal.length || ojo.length) {
+    mostrarAvisosEn('#pub-avisos', [...(mal.length ? [{ cls: 'mal', t: 'Falta completar:', l: mal }] : []), ...(ojo.length ? [{ cls: 'ojo', t: 'Revisa:', l: ojo }] : [])]);
+    $('#pub-avisos').scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (!(await pregunta('Hay cosas pendientes (míralas arriba). ¿Confirmar la semana de todas formas?', { si: 'Confirmar igual' }))) return;
+  } else if (!(await pregunta('¿Confirmar la predicación pública de esta semana?', { si: 'Confirmar' }))) return;
+  (P().semanas[E.actual] ??= { turnos: [] }).confirmada = true;
+  guardar(); pintarPublica();
+  mostrarAvisosEn('#pub-avisos', [{ cls: 'bien', t: 'Semana confirmada. Ya puedes crear la imagen para WhatsApp.' }]);
 }
 function mostrarAvisosEn(sel, bloques) { const c = $(sel); if (c) c.innerHTML = bloques.map(b => `<div class="aviso ${b.cls}" style="border-radius:12px;padding:10px 12px;margin:0 0 10px"><b>${esc(b.t)}</b>${b.l?.length ? '<ul>' + b.l.map(i => `<li>${esc(i)}</li>`).join('') + '</ul>' : ''}</div>`).join(''); }
 
@@ -2881,7 +2941,11 @@ document.addEventListener('click', async ev => {
     // ---- Predicación pública ----
     case 'pub-ejemplo': verEjemploPub = !verEjemploPub; pintarPublica(); break;
     case 'pub-generar': generarPublica(); break;
-    case 'pub-agregar': { const l = P().lugares[0]; if (!l) { toast('Primero agrega un lugar en Datos'); break; } semanaPub(); P().semanas[E.actual].turnos.push({ id: nuevoId(), dia: 0, lugar: l.nombre, inicio: l.inicio || '10:00', fin: l.fin || '12:00', pubs: [] }); guardar(); pintarPublica(); break; }
+    case 'pub-confirmar': confirmarPub(); break;
+    case 'pub-guia': E.guiaPubOculta = !E.guiaPubOculta; guardar(); pintarPublica(); if (!E.guiaPubOculta) window.scrollTo({ top: 0, behavior: 'smooth' }); break;
+    case 'pub-dia': abiertosPub.has(di) ? abiertosPub.delete(di) : abiertosPub.add(di); pintarPublica(); break;
+    case 'pub-agregar': { const l = P().lugares.find(x => (x.dias || []).includes(DIAS[di])) || P().lugares[0]; if (!l) { toast('Primero agrega un lugar en Datos'); break; } semanaPub(); (P().semanas[E.actual] ??= { turnos: [] }).turnos.push({ id: nuevoId(), dia: di, lugar: l.nombre, inicio: l.inicio || '10:00', fin: l.fin || '12:00', pubs: [] }); guardar(); pintarPublica(); break; }
+    case 'pub-chip': { const t = P().semanas[E.actual].turnos[Number(b.closest('.turno').dataset.ti)], ps = t.pubs.filter(Boolean); t.pubs = ps.includes(v) ? ps.filter(p => p !== v) : [...ps, v]; guardar(); pintarPublica(); break; }
     case 'pub-quitar': { const ti = Number(b.closest('.turno').dataset.ti); if (await pregunta('¿Quitar este turno?', { si: 'Quitar', peligro: true })) { P().semanas[E.actual].turnos.splice(ti, 1); guardar(); pintarPublica(); } break; }
     case 'pub-imagen': prepararImagen(() => crearImagen('hoja-pub'), () => `Predicacion_Publica_${fechaDe(E.actual).getDate()}_${MESES[fechaDe(E.actual, 6).getMonth()]}.png`); break;
     case 'dia': abiertos.has(di) ? abiertos.delete(di) : abiertos.add(di); pintarSemana(); break;
@@ -2899,7 +2963,7 @@ document.addEventListener('click', async ev => {
     case 'confirmar': confirmar(); break;
     case 'limpiar': if (await pregunta('¿Quitar todos los capitanes y territorios de esta semana para volver a completarla?', { si: 'Quitar', peligro: true })) { s.dias.forEach(d => d.forEach(o => { o.capitan = ''; o.terr = ''; o.extra = ''; })); s.confirmada = false; cambio(); } break;
     case 'plantilla': if (await pregunta('¿Usar las horas, tipos y puntos de esta semana como horario habitual para las semanas nuevas?', { si: 'Usar' })) { E.plantilla = s.dias.map(d => d.map(o => ({ hora: o.hora, tipo: o.tipo, punto: o.punto }))); guardar(); toast('Horario habitual guardado'); } break;
-    case 'hoja-grande': { const g = $('#hoja-grande'); g.querySelector('.hg-hoja').innerHTML = $('#hoja').innerHTML; g.hidden = false; break; }
+    case 'hoja-grande': { const g = $('#hoja-grande'); g.querySelector('.hg-hoja').innerHTML = $('#' + (v || 'hoja')).innerHTML; g.hidden = false; break; }
     case 'hoja-cerrar': $('#hoja-grande').hidden = true; break;
     case 'ayuda': E.guiaOculta = !E.guiaOculta; guardar(); ir('semana'); break;
     case 'vista': E.vista = v; guardar(); pintarPrograma(); break;
@@ -2961,8 +3025,7 @@ document.addEventListener('change', ev => {
   const el = ev.target;
   if (el.dataset.pf) {
     const t = P().semanas[E.actual].turnos[Number(el.closest('.turno').dataset.ti)], f = el.dataset.pf;
-    if (f === 'pub') t.pubs[Number(el.dataset.k)] = el.value;
-    else if (f === 'dia') t.dia = Number(el.value);
+    if (f === 'dia') { t.dia = Number(el.value); abiertosPub.add(t.dia); }
     else if (f === 'lugar') { t.lugar = el.value; const l = lugar(el.value); if (l) { t.inicio = l.inicio || t.inicio; t.fin = l.fin || t.fin; } }
     else t[f] = el.value;
     guardar(); pintarPublica(); return;
@@ -2975,6 +3038,12 @@ document.addEventListener('change', ev => {
   if (f === 'terr' && x.extra === x.terr) x.extra = ''; // el extra no puede ser el mismo territorio
   if (f === 'hora') s.dias[Number(caja.dataset.di)].sort((a, b) => a.hora.localeCompare(b.hora));
   delete s.ejemplo; guardar(); pintarSemana();
+});
+// Nota de la predicación pública: se guarda al escribir y solo se actualiza la vista previa (para no perder el cursor)
+document.addEventListener('input', e => {
+  if (e.target.id !== 'pub-nota') return;
+  (P().semanas[E.actual] ??= { turnos: [] }).nota = e.target.value.trim(); guardar();
+  $('#hoja-pub').innerHTML = hojaPublica(semanaPub().turnos, semanaPub().nota);
 });
 $('#nota-semana').addEventListener('input', e => { const s = semana(); s.nota = e.target.value.trim(); delete s.ejemplo; guardar(); });
 $('#f-excel').addEventListener('change', e => { const f = e.target.files[0]; if (f) importarExcel(f); e.target.value = ''; });

@@ -1,6 +1,6 @@
 /* Guarda la app en el celular para que abra sin internet.
    Con internet, siempre busca primero la versión nueva; sin internet, usa la guardada. */
-const CACHE = 'encargado-4.1';
+const CACHE = 'encargado-4.8';
 const ARCHIVOS = ['./', './index.html', './manifest.webmanifest', './icono-192.png', './icono-512.png', './icono-mascara-512.png', './icono-apple-180.png'];
 
 self.addEventListener('install', e => {
